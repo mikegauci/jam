@@ -1,8 +1,7 @@
 ---
 import { site } from '../data/site';
 ---
-<form id="contact-form" action="/api/contact" method="post" aria-describedby="form-help">
-<p id="form-help" class="form-help">Tell us about your special day. All fields are required except services and your note.</p>
+<form id="contact-form" action="/api/contact" method="post">
 <div class="form-columns"><div>
 {site.fields.slice(0,3).map(f=><div class="field"><label for={f.name}>{f.label}</label><input id={f.name} name={f.name} type={f.type} placeholder={f.placeholder} autocomplete={f.autocomplete} maxlength="200" required /></div>)}
 <fieldset class="service-fields"><legend>Services Needed</legend><div>{site.services.map((s,i)=><label class="checkbox"><input type="checkbox" name="services" value={s} /><span>{s}</span></label>)}</div></fieldset>
