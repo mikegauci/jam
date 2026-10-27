@@ -1,3 +1,14 @@
+// Let the initial images, fonts and document finish before the autoplay video
+// competes for bandwidth. It still starts automatically, muted and looping.
+const hero=document.querySelector<HTMLVideoElement>('#hero-video');
+const startHero=()=>{
+ if(!hero)return;
+ const source=hero.querySelector<HTMLSourceElement>('source[data-src]');
+ if(!source)return;
+ source.src=source.dataset.src!;hero.load();hero.play().catch(()=>{});
+};
+hero?.addEventListener('playing',()=>hero.classList.add('is-playing'),{once:true});
+if(document.readyState==='complete')startHero();else window.addEventListener('load',startHero,{once:true});
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 document.querySelector('#load-film')?.addEventListener('click',()=>{const frame=document.createElement('iframe');frame.src='https://player.vimeo.com/video/824061382?h=0223bcd008&dnt=1&autoplay=1';frame.title='Wedding Norbert & Joanne Trailer';frame.allow='autoplay; fullscreen; picture-in-picture';frame.allowFullscreen=true;document.querySelector('.film')!.replaceChildren(frame);frame.focus()});
 const slides=document.querySelector<HTMLElement>('.slides')!;const items=Array.from(slides?.children??[]) as HTMLElement[];const dots=Array.from(document.querySelectorAll<HTMLButtonElement>('[data-slide]'));

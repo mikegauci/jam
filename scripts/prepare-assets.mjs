@@ -17,3 +17,7 @@ await fs.writeFile('src/data/media.json',JSON.stringify(manifest,null,2)+'\n');
 await sharp(dir+'1-1.jpeg').resize(1200,630,{fit:'cover'}).jpeg({quality:86}).toFile(dir+'social.jpg');
 const tiles=await Promise.all(Array.from({length:8},async(_,i)=>({input:await sharp(dir+`package-${i+1}.jpg`).resize(595,421).toBuffer(),left:(i%2)*595,top:Math.floor(i/2)*421})));
 await sharp({create:{width:1190,height:1684,channels:3,background:'#fff'}}).composite(tiles).png().toFile('/tmp/jam-packages.png');
+
+// Keep fingerprinted build inputs in sync without recompressing them.
+await fs.mkdir('src/assets',{recursive:true});
+for(const name of await fs.readdir(dir))if(name.includes('-hq')&&name.endsWith('.webp')||['rings.webp','hero-poster.webp','Gilroy-Medium.woff2','Gilroy-Bold.woff2','Vitage-Otf.woff2','PlayfairDisplay-Bold.woff2'].includes(name))await fs.copyFile(dir+name,'src/assets/'+name);

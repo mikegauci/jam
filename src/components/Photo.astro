@@ -1,7 +1,8 @@
 ---
 import media from '../data/media.json';
+import { assetUrl } from '../lib/assets';
 const {name,alt,sizes='(max-width: 1200px) 100vw, 1200px',class:className='',eager=false}=Astro.props;
 const {width,height}=media[name as keyof typeof media];
-const srcset=[...new Set([...([480,800,1200,1920].filter(w=>w<width)),width])].map(w=>`/assets/${name}-hq${w===width?'':`-${w}`}.webp ${w}w`).join(', ');
+const srcset=[...new Set([...([480,800,1200,1920].filter(w=>w<width)),width])].map(w=>`${assetUrl(`${name}-hq${w===width?'':`-${w}`}.webp`)} ${w}w`).join(', ');
 ---
-<picture class={className}><source type="image/webp" srcset={srcset} sizes={sizes} /><img src={`/assets/${name}-hq.webp`} alt={alt} width={width} height={height} loading={eager?'eager':'lazy'} decoding="async" sizes={sizes} /></picture>
+<picture class={className} style={`aspect-ratio:${width}/${height}`}><source width={width} height={height} type="image/webp" srcset={srcset} sizes={sizes} /><img src={assetUrl(`${name}-hq.webp`)} alt={alt} width={width} height={height} fetchpriority={eager?'high':'auto'} loading={eager?'eager':'lazy'} decoding="async" sizes={sizes} /></picture>
