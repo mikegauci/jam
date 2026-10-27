@@ -55,7 +55,7 @@ Responsive WebP images include each full-resolution original in their source set
 GitHub: https://github.com/mikegauci/jam
 Vercel: `mikegaucis-projects/jam-weddings` (mikegauci’s projects).
 
-**Production domain cutover is on hold at the user's request. Do not attach or redirect jam.mt/www.jam.mt and do not change Cloudflare DNS until explicitly instructed to resume.** The Vercel deployment uses its own URL. jam.mt continues serving WordPress.
+Production cutover completed on 27 October 2026. https://jam.mt serves the Astro deployment; https://www.jam.mt permanently redirects to the apex domain with HTTP 308. Cloudflare's apex A record points to 216.198.79.1 and the www CNAME points to 6b4a48cdc2f27a2f.vercel-dns-017.com; both are DNS-only. All eight existing email and verification records were preserved unchanged. Before/after DNS snapshots are saved locally under the gitignored `.vercel/` directory. Mailjet credentials, sender, recipient and the form signing secret were securely configured for production and preview, and a fresh production deployment applied them. No real email delivery test was performed.
 
 Before any future DNS switch: finish Mailjet setup and a controlled form check; inspect the desktop/mobile rendering; export the existing Cloudflare zone; identify A/AAAA/CNAME web records; confirm Vercel's current recommended targets. Preserve MX, TXT (SPF/DKIM/DMARC/verification), mail-related host records, and any mail server address depended on by MX records. Make only the needed web-record changes. Validate HTTPS, canonical routing and the 404 on the actual domain after cutover.
 
