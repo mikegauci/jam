@@ -8,3 +8,5 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 
 .service-fields{display:block}.service-fields>div{margin-left:43%}@media(min-width:782px) and (max-width:921px){.service-fields>div{margin-left:40%}}
+
+.carousel-prev:disabled,.carousel-next:disabled{opacity:.25;cursor:default}
