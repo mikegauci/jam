@@ -1,3 +1,4 @@
+import { enquiryEmail } from '../src/lib/enquiry-email.js';
 import { createHmac, randomBytes, createHash, timingSafeEqual } from 'node:crypto';
 const fields={name:'Name & Surname',email:'Email',mobile:'Mobile',date:'Date Getting Married',bride:'Location and Time of Bride',groom:'Location and Time of Groom',ceremony:'Location of Ceremony',reception:'Location of Reception',guests:'Number of Guests Invited'};
 const choices=['Photography Package 01: Wedding Day','Photography Package 02: Pre-Wedding & Wedding Day','Pre Wedding photography','Post Wedding photography','Photo Booth','Videography package 01: Short film','Videography package 02: Full Wedding','Drone coverage','All raw footage'];
@@ -38,9 +39,9 @@ export default async function handler(req,res){
  // Best-effort warm-instance limit; signed proof-of-work remains valid across serverless instances.
  const ip=String(req.headers['x-forwarded-for']||req.headers['x-real-ip']||'unknown').split(',')[0];const ipKey=createHash('sha256').update(ip).digest('hex');
  const entry=recent.get(ipKey)||{count:0,until:now+600000};if(entry.count>=5)return reply(429,'Too many enquiries. Please wait ten minutes or email info@jam.mt.');entry.count++;if(recent.size<10000)recent.set(ipKey,entry);
- const text=Object.entries(fields).map(([key,label])=>`${label}: ${clean[key]}`).join('\n')+'\nServices Needed: '+(data.services.join(', ')||'Not selected')+'\n\nLeave a note:\n'+(data.note||'');
+ const content=enquiryEmail(clean,data.services,data.note||'');
  try{
-  const response=await fetch('https://api.mailjet.com/v3.1/send',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Basic '+Buffer.from(`${MAILJET_API_KEY}:${MAILJET_SECRET_KEY}`).toString('base64')},body:JSON.stringify({Messages:[{From:{Email:CONTACT_FROM,Name:'Jam Weddings website'},To:[{Email:CONTACT_TO}],ReplyTo:{Email:clean.email,Name:clean.name},Subject:`Wedding enquiry — ${clean.name} — ${clean.date}`,TextPart:text}]}),signal:AbortSignal.timeout(15000)});
+  const response=await fetch('https://api.mailjet.com/v3.1/send',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Basic '+Buffer.from(`${MAILJET_API_KEY}:${MAILJET_SECRET_KEY}`).toString('base64')},body:JSON.stringify({Messages:[{From:{Email:CONTACT_FROM,Name:'Jam Weddings website'},To:[{Email:CONTACT_TO}],ReplyTo:{Email:clean.email,Name:clean.name},Subject:`Wedding enquiry — ${clean.name} — ${clean.date}`,...content}]}),signal:AbortSignal.timeout(15000)});
   const result=await response.json();if(!response.ok||result.Messages?.[0]?.Status!=='success'){console.error('Mailjet enquiry rejected',response.status);return reply(502,'We couldn’t send your enquiry. Please try again or email info@jam.mt.');}
   return reply(200,'Thank you! Your enquiry has been sent to Jam Weddings. We’ll be in touch.');
  }catch{console.error('Mailjet enquiry request failed');return reply(502,'We couldn’t confirm your enquiry was sent. Please email info@jam.mt or call 79824401.');}

@@ -28,7 +28,7 @@ try{
  Object.assign(process.env,{MAILJET_API_KEY:'mock',MAILJET_SECRET_KEY:'mock',CONTACT_FROM:'website@jam.mt',CONTACT_TO:'info@jam.mt'});
  let message;
  globalThis.fetch=async(url,init)=>{assert.equal(url,'https://api.mailjet.com/v3.1/send');message=JSON.parse(init.body).Messages[0];return {ok:true,json:async()=>({Messages:[{Status:'success'}]})}};
- assert.equal((await call('POST',data)).status,200);assert.equal(message.ReplyTo.Email,'visitor@example.com');assert.equal(message.From.Email,'website@jam.mt');assert.equal(message.To[0].Email,'info@jam.mt');assert(message.TextPart.includes('Photo Booth'));
+ assert.equal((await call('POST',data)).status,200);assert.equal(message.ReplyTo.Email,'visitor@example.com');assert.equal(message.From.Email,'website@jam.mt');assert.equal(message.To[0].Email,'info@jam.mt');assert(message.TextPart.includes('Photo Booth'));assert(message.HTMLPart.includes('Contact details'));assert(message.HTMLPart.includes('Wedding details'));assert(message.HTMLPart.includes('Photo Booth'));assert(message.HTMLPart.includes(data.note));
  globalThis.fetch=async()=>({ok:false,status:401,json:async()=>({})});assert.equal((await call('POST',data)).status,502);
  console.log('PASS: section navigation, local assets, SEO files, noindex 404, lazy video, form validation, spam rejection, missing credentials, mocked Mailjet success/error and Reply-To. No real email sent.');
 }finally{globalThis.fetch=originalFetch;for(const key of Object.keys(process.env))if(!(key in originalEnv))delete process.env[key];Object.assign(process.env,originalEnv)}
