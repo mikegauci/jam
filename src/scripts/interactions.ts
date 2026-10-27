@@ -1,7 +1,4 @@
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-const hero=document.querySelector<HTMLVideoElement>('#hero-video')!;
-const heroButton=document.querySelector<HTMLButtonElement>('.hero-play')!;
-heroButton?.addEventListener('click',async()=>{if(hero.paused){if(!hero.querySelector('source')!.src){hero.querySelector('source')!.src=hero.querySelector('source')!.dataset.src!;hero.load()}hero.hidden=false;try{await hero.play();heroButton.textContent='Pause wedding highlights';heroButton.setAttribute('aria-pressed','true')}catch{heroButton.textContent='Play wedding highlights'}}else{hero.pause();heroButton.textContent='Play wedding highlights';heroButton.setAttribute('aria-pressed','false')}});
 document.querySelector('#load-film')?.addEventListener('click',()=>{const frame=document.createElement('iframe');frame.src='https://player.vimeo.com/video/824061382?h=0223bcd008&dnt=1&autoplay=1';frame.title='Wedding Norbert & Joanne Trailer';frame.allow='autoplay; fullscreen; picture-in-picture';frame.allowFullscreen=true;document.querySelector('.film')!.replaceChildren(frame);frame.focus()});
 const slides=document.querySelector<HTMLElement>('.slides')!;const items=Array.from(slides?.children??[]) as HTMLElement[];const dots=Array.from(document.querySelectorAll<HTMLButtonElement>('[data-slide]'));
 let current=0;
