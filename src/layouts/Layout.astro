@@ -34,8 +34,11 @@ const schema = { '@context':'https://schema.org','@graph':[
 <footer><div class="footer-main container"><a href="/" aria-label="Jam Weddings home"><img src="/assets/jam-weddings-logo.svg" alt="Jam Weddings" width="132" height="65" loading="lazy" /></a><nav aria-label="Footer navigation">{site.links.map(([label,id])=><a href={`/#${id}`}>{label}</a>)}</nav><div class="footer-contact"><p><a href="tel:+35679824401">79824401</a> / <a href="tel:+35679996197">79996197</a></p><a href={`mailto:${site.email}`}>{site.email}</a></div><div class="socials">{site.socials.map(([label,url])=><a href={url} target="_blank" rel="noopener noreferrer" aria-label={label}><img src={`/assets/social-${label.toLowerCase()}.svg`} alt="" width="33" height="33" loading="lazy" /></a>)}</div></div><p class="copyright">Copyright © {new Date().getFullYear()} Jam Weddings</p></footer>
 <script>
 const toggle=document.querySelector<HTMLButtonElement>('.menu-toggle');const nav=document.querySelector('#main-nav');
-toggle?.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Close menu':'Open menu');nav?.classList.toggle('open',open)});
-nav?.addEventListener('click',e=>{if((e.target as HTMLElement).closest('a')){toggle?.setAttribute('aria-expanded','false');nav.classList.remove('open')}});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&toggle?.getAttribute('aria-expanded')==='true'){toggle.setAttribute('aria-expanded','false');nav?.classList.remove('open');toggle.focus()}});
+function setMenu(open:boolean){toggle?.setAttribute('aria-expanded',String(open));toggle?.setAttribute('aria-label',open?'Close menu':'Open menu');nav?.classList.toggle('open',open)}
+toggle?.addEventListener('click',()=>setMenu(toggle.getAttribute('aria-expanded')!=='true'));
+nav?.addEventListener('click',e=>{if((e.target as HTMLElement).closest('a'))setMenu(false)});
+document.addEventListener('click',e=>{if(!(e.target as HTMLElement).closest('.header'))setMenu(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&toggle?.getAttribute('aria-expanded')==='true'){setMenu(false);toggle.focus()}});
+matchMedia('(max-width: 921px)').addEventListener('change',()=>setMenu(false));
 </script>
 </body></html>

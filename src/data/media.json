@@ -1,0 +1,78 @@
+{
+  "team": {
+    "width": 1200,
+    "height": 1200
+  },
+  "wedding-wide": {
+    "width": 1920,
+    "height": 720
+  },
+  "wedding-2": {
+    "width": 640,
+    "height": 720
+  },
+  "wedding-3": {
+    "width": 640,
+    "height": 720
+  },
+  "wedding-4": {
+    "width": 640,
+    "height": 720
+  },
+  "wedding-2025-wide": {
+    "width": 1678,
+    "height": 661
+  },
+  "wedding-2025-2": {
+    "width": 774,
+    "height": 867
+  },
+  "wedding-2025-3": {
+    "width": 774,
+    "height": 867
+  },
+  "wedding-2025-4": {
+    "width": 774,
+    "height": 867
+  },
+  "rings": {
+    "width": 1921,
+    "height": 866
+  },
+  "vimeo-poster": {
+    "width": 640,
+    "height": 360
+  },
+  "package-1": {
+    "width": 1190,
+    "height": 842
+  },
+  "package-2": {
+    "width": 1191,
+    "height": 842
+  },
+  "package-3": {
+    "width": 1191,
+    "height": 842
+  },
+  "package-4": {
+    "width": 1191,
+    "height": 842
+  },
+  "package-5": {
+    "width": 1191,
+    "height": 842
+  },
+  "package-6": {
+    "width": 1191,
+    "height": 842
+  },
+  "package-7": {
+    "width": 1191,
+    "height": 842
+  },
+  "package-8": {
+    "width": 1191,
+    "height": 842
+  }
+}

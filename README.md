@@ -48,7 +48,7 @@ Missing credentials and Mailjet failures return explicit errors. Success is disp
 
 Homepage title, description, canonical, Open Graph, Twitter and ProfessionalService/WebSite/WebPage JSON-LD are populated. Section anchors are part of the homepage, not separate indexable pages. `sitemap.xml`, `robots.txt` and `llms.txt` use the final canonical domain, https://jam.mt. The custom 404 has noindex metadata and Vercel serves unknown paths with HTTP 404. API responses use no-store and noindex.
 
-Responsive WebP images, explicit dimensions, WOFF2 fonts, lazy image loading and small native scripts reduce transfer and layout shifts. The local hero video loads automatically and plays muted on a continuous loop, matching the original website. It has no visible playback toggle. The Vimeo portfolio player loads only on request. Vimeo uses `dnt=1`. No PageSpeed score has been measured.
+Responsive WebP images include each full-resolution original in their source sets. Photographs use quality 94; service artwork uses lossless WebP to preserve its lettering. Native source dimensions are recorded in `src/data/media.json`; the package originals are approximately 1190 × 842 pixels. Explicit dimensions, WOFF2 fonts, lazy image loading and small native scripts reduce transfer and layout shifts. The mobile menu animates as an overlay below the fixed-height 80px header and respects reduced-motion preferences. The local hero video loads automatically and plays muted on a continuous loop, matching the original website. It has no visible playback toggle. The Vimeo portfolio player loads only on request. Vimeo uses `dnt=1`. No PageSpeed score has been measured.
 
 ## Deployment and domain
 

@@ -1,4 +1,7 @@
 ---
-const {name,alt,width,height,sizes='(max-width: 767px) 100vw, 1200px',class:className='',eager=false}=Astro.props;
+import media from '../data/media.json';
+const {name,alt,sizes='(max-width: 1200px) 100vw, 1200px',class:className='',eager=false}=Astro.props;
+const {width,height}=media[name as keyof typeof media];
+const srcset=[...new Set([...([480,800,1200,1920].filter(w=>w<width)),width])].map(w=>`/assets/${name}-hq${w===width?'':`-${w}`}.webp ${w}w`).join(', ');
 ---
-<picture class={className}><source type="image/webp" srcset={[480,800,1200,1920].filter(w=>w<=width).map(w=>`/assets/${name}-${w}.webp ${w}w`).join(', ')} sizes={sizes} /><img src={`/assets/${name}.webp`} alt={alt} width={width} height={height} loading={eager?'eager':'lazy'} decoding="async" sizes={sizes} /></picture>
+<picture class={className}><source type="image/webp" srcset={srcset} sizes={sizes} /><img src={`/assets/${name}-hq.webp`} alt={alt} width={width} height={height} loading={eager?'eager':'lazy'} decoding="async" sizes={sizes} /></picture>
