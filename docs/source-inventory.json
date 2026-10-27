@@ -1,0 +1,40 @@
+{
+  "source": "https://jam.mt/",
+  "pages": [
+    "/"
+  ],
+  "anchors": [
+    "about",
+    "portfolio",
+    "services",
+    "contact"
+  ],
+  "assets": [
+    "https://jam.mt/wp-content/uploads/2023/03/jam-weddings-logo.svg",
+    "https://jam.mt/wp-content/uploads/2023/04/AdelleSans_Regular.otf",
+    "https://jam.mt/wp-content/uploads/2023/04/Vitage-Otf.otf",
+    "https://jam.mt/wp-content/uploads/2023/05/Gilroy-Bold.ttf",
+    "https://jam.mt/wp-content/uploads/2023/05/Gilroy-Medium.ttf",
+    "https://jam.mt/wp-content/uploads/2023/05/PlayfairDisplay-Bold.otf",
+    "https://jam.mt/wp-content/uploads/2023/05/RINGS-02.jpg",
+    "https://jam.mt/wp-content/uploads/2023/05/hero-vid.mp4",
+    "https://jam.mt/wp-content/uploads/2023/06/1-1.jpeg",
+    "https://jam.mt/wp-content/uploads/2023/06/2-2.jpeg",
+    "https://jam.mt/wp-content/uploads/2023/06/3-3.jpeg",
+    "https://jam.mt/wp-content/uploads/2023/06/4-4.jpeg",
+    "https://jam.mt/wp-content/uploads/2023/06/lets-jam-1-1024x1024.jpeg",
+    "https://jam.mt/wp-content/uploads/2025/02/1-1024x403.jpg",
+    "https://jam.mt/wp-content/uploads/2025/02/1.jpg",
+    "https://jam.mt/wp-content/uploads/2025/02/2-1.jpg",
+    "https://jam.mt/wp-content/uploads/2025/02/2.jpg",
+    "https://jam.mt/wp-content/uploads/2025/02/3-1.jpg",
+    "https://jam.mt/wp-content/uploads/2025/02/3.jpg",
+    "https://jam.mt/wp-content/uploads/2025/02/4-1.jpg",
+    "https://jam.mt/wp-content/uploads/2025/02/4.jpg",
+    "https://jam.mt/wp-content/uploads/2025/02/5.jpg",
+    "https://jam.mt/wp-content/uploads/2025/02/6.jpg",
+    "https://jam.mt/wp-content/uploads/2025/02/7.jpg",
+    "https://jam.mt/wp-content/uploads/2025/02/8.jpg",
+    "https://jam.mt/wp-content/uploads/2026/01/Jam-Wedding-Package-2026.jpg"
+  ]
+}

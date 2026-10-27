@@ -1,0 +1,36 @@
+---
+import { site } from '../data/site';
+---
+<form id="contact-form" action="/api/contact" method="post" aria-describedby="form-help">
+<p id="form-help" class="form-help">Tell us about your special day. All fields are required except services and your note.</p>
+<div class="form-columns"><div>
+{site.fields.slice(0,3).map(f=><div class="field"><label for={f.name}>{f.label}</label><input id={f.name} name={f.name} type={f.type} placeholder={f.placeholder} autocomplete={f.autocomplete} maxlength="200" required /></div>)}
+<fieldset class="service-fields"><legend>Services Needed</legend><div>{site.services.map((s,i)=><label class="checkbox"><input type="checkbox" name="services" value={s} /><span>{s}</span></label>)}</div></fieldset>
+</div><div>
+{site.fields.slice(3).map(f=><div class="field"><label for={f.name}>{f.label}</label><input id={f.name} name={f.name} type={f.type} placeholder={f.placeholder} maxlength="200" required /></div>)}
+<div class="field"><label for="note">Leave a note</label><textarea id="note" name="note" placeholder="I would like to request..." maxlength="2000" rows="4"></textarea></div>
+</div></div>
+<div class="honey" aria-hidden="true"><label for="website">Leave this field empty</label><input id="website" name="website" tabindex="-1" autocomplete="off" /></div>
+<p id="form-status" role="status" aria-live="polite" tabindex="-1"></p>
+<div class="form-submit"><button type="submit">submit</button></div>
+<noscript><p>Please enable JavaScript to submit this protected form, or email <a href="mailto:info@jam.mt">info@jam.mt</a>.</p></noscript>
+</form>
+<script>
+const form=document.querySelector<HTMLFormElement>('#contact-form');
+let challenge:Promise<{token:string}>|undefined;
+const getChallenge=()=>fetch('/api/contact',{headers:{Accept:'application/json'}}).then(async r=>{if(!r.ok)throw Error('The form is temporarily unavailable. Please email info@jam.mt.');return r.json()});
+form?.addEventListener('focusin',()=>{if(!challenge)challenge=getChallenge();challenge.catch(()=>{})},{once:true});
+form?.addEventListener('submit',async e=>{
+ e.preventDefault();if(!form.reportValidity())return;const status=document.querySelector<HTMLElement>('#form-status')!;const button=form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+ button.disabled=true;status.textContent='Checking and sending your enquiry…';status.className='';
+ try{
+  const {token}=await(challenge??getChallenge());const encoder=new TextEncoder();let proof=0;
+  while(proof<1000000){const hash=new Uint8Array(await crypto.subtle.digest('SHA-256',encoder.encode(token+':'+proof)));if(hash[0]===0&&hash[1]<16)break;proof++;}
+  if(proof===1000000)throw Error('Please try again. The spam check could not finish.');
+  const data=Object.fromEntries(new FormData(form));data.services=new FormData(form).getAll('services') as any;data.token=token;data.proof=String(proof);
+  const response=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});const result=await response.json();if(!response.ok)throw Error(result.message||'Unable to send. Please email info@jam.mt.');
+  status.textContent=result.message;status.className='success';form.reset();
+ }catch(error){status.textContent=error instanceof Error?error.message:'Connection failed. Please try again or email info@jam.mt.';status.className='error'}
+ finally{button.disabled=false;status.focus();challenge=undefined}
+});
+</script>

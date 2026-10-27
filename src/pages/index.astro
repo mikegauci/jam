@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Photo from '../components/Photo.astro';
+import Contact from '../components/Contact.astro';
+import { packages } from '../data/packages';
+const gallery=[
+ {name:'wedding-wide',alt:'A wedding celebration photographed by Jam Weddings',width:1920,height:720,wide:true},
+ {name:'wedding-2',alt:'Wedding portrait from the Jam Weddings portfolio',width:640,height:720},
+ {name:'wedding-3',alt:'A moment from a wedding day in Malta',width:640,height:720},
+ {name:'wedding-4',alt:'Wedding day photography by Jam Weddings',width:640,height:720},
+ {name:'wedding-2025-wide',alt:'A couple celebrating their wedding',width:1678,height:661,wide:true},
+ {name:'wedding-2025-2',alt:'Wedding photography from our recent portfolio',width:774,height:867},
+ {name:'wedding-2025-3',alt:'A wedding day moment captured in Malta',width:774,height:867},
+ {name:'wedding-2025-4',alt:'A couple photographed by the Jam Weddings team',width:774,height:867}
+];
+---
+<Layout>
+<h1 class="sr-only">Jam Weddings — Wedding photography and cinematography in Malta</h1>
+<section class="hero" aria-label="Jam Weddings wedding film"><img src="/assets/hero-poster.webp" alt="" width="1920" height="1080" fetchpriority="high" /><video id="hero-video" muted loop playsinline preload="none" poster="/assets/hero-poster.webp" aria-label="Wedding highlights" hidden><source data-src="/assets/hero-vid.mp4" type="video/mp4" /></video><button class="hero-play" aria-pressed="false">Play wedding highlights</button></section>
+<section id="about" class="about"><div class="container about-grid"><Photo name="team" alt="The three members of the Jam Weddings creative team" width={1024} height={1024} sizes="(max-width: 767px) 100vw, 540px" /><div><h2>Let’s <strong>jam!</strong></h2><p><strong>We offer both <mark>photography</mark> and <mark>cinematography</mark> services on your special day together with some add ons for that extra flavour.</strong></p><p><strong>We’re a creative and a fun team of three, each making sure to provide you with the best service to also spread the word not just love.</strong></p></div></div></section>
+<section id="portfolio" class="portfolio section"><div class="container"><h2>Portfolio</h2><div class="film"><button id="load-film" aria-label="Play Wedding Norbert and Joanne Trailer"><img src="/assets/vimeo-poster.webp" alt="Norbert and Joanne wedding film" width="1200" height="675" loading="lazy" /><span class="play-icon" aria-hidden="true">▶</span></button></div><div class="gallery">{gallery.map(p=><Photo {...p} class={p.wide?'wide':''} sizes={p.wide?'(max-width: 1200px) 100vw, 1200px':'(max-width: 781px) 100vw, 400px'} />)}</div></div></section>
+<section id="services" class="services section"><div class="container"><h2>Services we offer</h2><div class="carousel" role="region" aria-roledescription="carousel" aria-label="Wedding packages"><div class="slides">{Array.from({length:8},(_,i)=><div class="slide" role="group" aria-roledescription="slide" aria-label={`${i+1} of 8`}><Photo name={`package-${i+1}`} alt={`Jam Weddings services and packages, page ${i+1} of 8`} width={1190} height={842} /><a class="sr-only focus-link" href={`/assets/package-${i+1}.jpg`}>Open full resolution package page {i+1}</a></div>)}</div><button class="carousel-prev" aria-label="Previous package">‹</button><button class="carousel-next" aria-label="Next package">›</button></div><div class="carousel-dots" aria-label="Choose a package page">{Array.from({length:8},(_,i)=><button aria-label={`Package page ${i+1}`} aria-pressed={i===0?'true':'false'} data-slide={i}></button>)}</div><details class="packages-text"><summary>Read our services and package details</summary><div>{packages.map(p=><article><h3>{p.title}</h3><p>{p.text}</p></article>)}</div></details></div></section>
+<section id="contact" class="contact section"><div class="container"><h2>Get in touch</h2><Contact /></div></section>
+<script>
+import '../scripts/interactions';
+</script>
+</Layout>

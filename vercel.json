@@ -1,0 +1,236 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "astro",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/index.php",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/home/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/#about",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio",
+      "destination": "/#portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/services",
+      "destination": "/#services",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/#contact",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2023/03/jam-weddings-logo.svg",
+      "destination": "/assets/jam-weddings-logo.svg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2023/04/AdelleSans_Regular.otf",
+      "destination": "/assets/AdelleSans_Regular.woff2",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2023/04/Vitage-Otf.otf",
+      "destination": "/assets/Vitage-Otf.woff2",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2023/05/Gilroy-Bold.ttf",
+      "destination": "/assets/Gilroy-Bold.woff2",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2023/05/Gilroy-Medium.ttf",
+      "destination": "/assets/Gilroy-Medium.woff2",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2023/05/PlayfairDisplay-Bold.otf",
+      "destination": "/assets/PlayfairDisplay-Bold.woff2",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2023/05/RINGS-02.jpg",
+      "destination": "/assets/RINGS-02.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2023/05/hero-vid.mp4",
+      "destination": "/assets/hero-vid.mp4",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2023/06/1-1.jpeg",
+      "destination": "/assets/1-1.jpeg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2023/06/2-2.jpeg",
+      "destination": "/assets/2-2.jpeg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2023/06/3-3.jpeg",
+      "destination": "/assets/3-3.jpeg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2023/06/4-4.jpeg",
+      "destination": "/assets/4-4.jpeg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2023/06/lets-jam-1-1024x1024.jpeg",
+      "destination": "/assets/lets-jam-1-1024x1024.jpeg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2025/02/1-1024x403.jpg",
+      "destination": "/assets/1-1024x403.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2025/02/1.jpg",
+      "destination": "/assets/1.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2025/02/2-1.jpg",
+      "destination": "/assets/2-1.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2025/02/2.jpg",
+      "destination": "/assets/2.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2025/02/3-1.jpg",
+      "destination": "/assets/3-1.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2025/02/3.jpg",
+      "destination": "/assets/3.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2025/02/4-1.jpg",
+      "destination": "/assets/4-1.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2025/02/4.jpg",
+      "destination": "/assets/4.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2025/02/5.jpg",
+      "destination": "/assets/5.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2025/02/6.jpg",
+      "destination": "/assets/6.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2025/02/7.jpg",
+      "destination": "/assets/7.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2025/02/8.jpg",
+      "destination": "/assets/8.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/uploads/2026/01/Jam-Wedding-Package-2026.jpg",
+      "destination": "/assets/Jam-Wedding-Package-2026.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/wp-sitemap.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; frame-src https://player.vimeo.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/_astro/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/404(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    }
+  ]
+}

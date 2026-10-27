@@ -1,0 +1,41 @@
+---
+import { site } from '../data/site';
+import '../styles/global.css';
+const { title = site.title, description = site.description, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const schema = { '@context':'https://schema.org','@graph':[
+ { '@type':'ProfessionalService','@id':`${site.url}/#business`,name:site.name,url:site.url,description:site.description,email:site.email,telephone:'+35679824401',image:`${site.url}/assets/social.jpg`,logo:`${site.url}/assets/jam-weddings-logo.svg`,areaServed:{'@type':'Country',name:'Malta'},sameAs:site.socials.map(s=>s[1]),hasOfferCatalog:{'@type':'OfferCatalog',name:'Wedding photography and cinematography',itemListElement:['Wedding photography','Wedding cinematography','Photo booth','Drone coverage'].map(name=>({'@type':'Offer',itemOffered:{'@type':'Service',name}}))}},
+ { '@type':'WebSite','@id':`${site.url}/#website`,name:site.name,url:site.url,publisher:{'@id':`${site.url}/#business`}},
+ { '@type':'WebPage',name:title,description,url:canonical,isPartOf:{'@id':`${site.url}/#website`},about:{'@id':`${site.url}/#business`},inLanguage:'en'}
+]};
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{title}</title><meta name="description" content={description} /><link rel="canonical" href={canonical} />
+<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
+<meta name="theme-color" content="#00373d" /><link rel="icon" type="image/svg+xml" href="/assets/jam-weddings-logo.svg" />
+<meta property="og:type" content="website" /><meta property="og:site_name" content={site.name} /><meta property="og:locale" content="en_GB" />
+<meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} />
+<meta property="og:image" content={`${site.url}/assets/social.jpg`} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta property="og:image:alt" content="Wedding photography by Jam Weddings in Malta" />
+<meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={title} /><meta name="twitter:description" content={description} /><meta name="twitter:image" content={`${site.url}/assets/social.jpg`} />
+<link rel="preload" href="/assets/Gilroy-Medium.woff2" as="font" type="font/woff2" crossorigin />
+{!noindex && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+</head>
+<body>
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="header"><div class="header-inner">
+<a href="/" class="logo" aria-label="Jam Weddings home"><img src="/assets/jam-weddings-logo.svg" alt="Jam Weddings" width="90" height="44" /></a>
+<button class="menu-toggle" aria-label="Open menu" aria-controls="main-nav" aria-expanded="false"><span></span><span></span><span></span></button>
+<nav id="main-nav" aria-label="Main navigation">{site.links.map(([label,id])=><a href={`/#${id}`}>{label}</a>)}</nav>
+</div></header>
+<main id="content"><slot /></main>
+<footer><div class="footer-main container"><a href="/" aria-label="Jam Weddings home"><img src="/assets/jam-weddings-logo.svg" alt="Jam Weddings" width="132" height="65" loading="lazy" /></a><nav aria-label="Footer navigation">{site.links.map(([label,id])=><a href={`/#${id}`}>{label}</a>)}</nav><div class="footer-contact"><p><a href="tel:+35679824401">79824401</a> / <a href="tel:+35679996197">79996197</a></p><a href={`mailto:${site.email}`}>{site.email}</a></div><div class="socials">{site.socials.map(([label,url])=><a href={url} target="_blank" rel="noopener noreferrer" aria-label={label}>{label === 'Facebook' ? 'f' : label === 'Vimeo' ? 'v' : '◎'}</a>)}</div></div><p class="copyright">Copyright © {new Date().getFullYear()} Jam Weddings</p></footer>
+<script>
+const toggle=document.querySelector<HTMLButtonElement>('.menu-toggle');const nav=document.querySelector('#main-nav');
+toggle?.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Close menu':'Open menu');nav?.classList.toggle('open',open)});
+nav?.addEventListener('click',e=>{if((e.target as HTMLElement).closest('a')){toggle?.setAttribute('aria-expanded','false');nav.classList.remove('open')}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&toggle?.getAttribute('aria-expanded')==='true'){toggle.setAttribute('aria-expanded','false');nav?.classList.remove('open');toggle.focus()}});
+</script>
+</body></html>
